@@ -1,0 +1,394 @@
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<style type="text/css">
+    body {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1100px;
+    }
+
+    h1 {
+        font-size: 32px;
+        font-weight: 300;
+    }
+
+    .disclaimerbox {
+        background-color: #eee;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        padding: 20px;
+    }
+
+    video.header-vid {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.header-img {
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+
+    a:link, a:visited {
+        color: #1367a7;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #208799;
+    }
+
+    td.dl-link {
+        height: 160px;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35), /* The third layer shadow */ 15px 15px 0 0px #fff, /* The fourth layer */ 15px 15px 1px 1px rgba(0, 0, 0, 0.35), /* The fourth layer shadow */ 20px 20px 0 0px #fff, /* The fifth layer */ 20px 20px 1px 1px rgba(0, 0, 0, 0.35), /* The fifth layer shadow */ 25px 25px 0 0px #fff, /* The fifth layer */ 25px 25px 1px 1px rgba(0, 0, 0, 0.35); /* The fifth layer shadow */
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+    .paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35); /* The top layer shadow */
+
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+
+    .layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35), /* The top layer shadow */ 5px 5px 0 0px #fff, /* The second layer */ 5px 5px 1px 1px rgba(0, 0, 0, 0.35), /* The second layer shadow */ 10px 10px 0 0px #fff, /* The third layer */ 10px 10px 1px 1px rgba(0, 0, 0, 0.35); /* The third layer shadow */
+        margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 30px;
+        margin-bottom: 5px;
+    }
+
+    .vert-cent {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+</style>
+
+<html>
+<head>
+    <title>Pos3R: 6D Pose Estimation for Unseen Objects Made Easy
+
+    </title>
+    <meta property="og:image" content="./resource/teaser.png"/>
+    <meta property="og:title" content="Pos3R: 6D Pose Estimation for Unseen Objects Made Easy
+
+"/>
+
+    <!-- Get from Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=""></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75863369-6');
+    </script>
+</head>
+
+<body>
+<br>
+
+<center>
+    <span style="font-size:34px">Pos3R: 6D Pose Estimation for Unseen Objects Made Easy
+
+</span>
+    <br>
+    <table align=center width=600px>
+        <tr>
+            <!---------------------  authors --------------------->
+            <span style="font-size:20px">
+				  <div style="display:inline-block">
+				  <a href="https://weijiandeng.xyz" target="_blank" style=" color:#007acc">Weijian Deng<sup>1</sup></a>,
+				  </div>
+
+				 <div style="display:inline-block">
+				  <a href="https://sites.google.com/view/djcampbell" target="_blank" style=" color:#007acc">Dylan Campbell<sup>1</sup></a>,
+				  </div>
+
+				  <div style="display:inline-block">
+				  <a href="https://chuny1.github.io/" target="_blank" style=" color:#007acc">Chunyi Sun<sup>1</sup></a>,
+				  </div>
+
+                				  <div style="display:inline-block">
+				  <a href="https://academic.davidz.cn/en/" target="_blank" style=" color:#007acc">Jiahao Zhang<sup>1</sup></a>,
+				  </div>
+
+
+					<br>
+
+				  <div style="display:inline-block">
+				  <a href="https://www.linkedin.com/in/shubham-kanitkar" target="_blank" style=" color:#007acc">Shubham Kanitkar<sup>2</sup></a>,
+				  </div>
+
+					<div style="display:inline-block">
+				  <a href="https://www.linkedin.com/in/shaffermatthew" target="_blank" style=" color:#007acc">Matthew E. Shaffer<sup>2</sup></a>,
+				  </div>
+
+				 <div style="display:inline-block">
+				  <a href="http://users.cecs.anu.edu.au/~sgould/" target="_blank"
+                     style=" color:#007acc">Stephen Gould<sup>1</sup></a>,
+                 </div> </span>
+        </tr>
+    </table>
+
+    <!--------------------- affiliations --------------------->
+    <div class="gap-5"></div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <center><span style="font-size:20px">
+          <sup>1</sup>Australian National University, <sup>2</sup>RIOS Intelligent Machines
+        </span></center>
+        </div>
+    </div>
+    <hr>
+
+    <table align=center width=280px>
+        <tr>
+            <td align=center width=10px>
+                <center>
+                    <span style="font-size:24px"><b>CVPR'25</b></span>
+                </center>
+            </td>
+
+            <td align=center width=120px>
+                <center>
+                    <span style="font-size:24px"><a href='resources/paper.pdf' target="_blank">[Paper]</a></span>
+                </center>
+            </td>
+
+            <td align=center width=120px>
+                <center>
+                    <span style="font-size:24px"><a href='resources/poster.pdf' target="_blank">[Poster]</a></span>
+                </center>
+            </td>
+
+            <td align=center width=120px>
+                <center>
+                    <span style="font-size:24px"><a href='resources/slides.pdf' target="_blank">[Slides]</a></span>
+                </center>
+            </td>
+
+            <td align=center width=120px>
+                <center>
+                    <span style="font-size:24px"><a href='resources/bibtex.txt' target="_blank">[Bibtex]</a></span>
+                </center>
+            </td>
+
+
+            <td align=center width=120px>
+                <center>
+                    <span style="font-size:24px"><a href='' target="_blank">[GitHub]</a></span><br>
+                </center>
+            </td>
+        </tr>
+    </table>
+
+</center>
+
+<center>
+    <table align=center width=850px>
+        <tr>
+            <td width=260px>
+                <center>
+                    <img class="round" style="width:500px" src="./resources/fig1.png"/>
+                </center>
+            </td>
+        </tr>
+    </table>
+    <table align=center width=850px>
+        <tr>
+            <td>
+                Foundation 3D models are better equipped to predict 3D-consistent features, which are of significant utility for the pose estimation task.
+            </td>
+        </tr>
+    </table>
+</center>
+
+<hr>
+
+<table align=center width=850px>
+    <center><h1>Abstract</h1></center>
+    <tr>
+        <td>
+            Foundation models have significantly reduced the need for task-specific training, while also enhancing generalizability.
+            However, state-of-the-art 6D pose estimators either require further training with pose supervision or neglect advances obtainable from 3D foundation models.
+            The latter is a missed opportunity, since these models are better equipped to predict 3D-consistent features, which are of significant utility for the pose estimation task.
+            To address this gap, we propose Pos3R, a method for estimating the 6D pose of any object from a single RGB image, making extensive use of a 3D reconstruction foundation model and requiring no additional training.
+            We identify template selection as a particular bottleneck for existing methods that is significantly alleviated by the use of a 3D model, which can more easily distinguish between template poses than a 2D model.
+            Despite its simplicity, Pos3R achieves competitive performance on the BOP benchmark across seven diverse datasets, matching or surpassing existing refinement-free methods.
+            Pos3R integrates seamlessly with render-and-compare refinement techniques, demonstrating adaptability for high-precision applications.
+        </td>
+    </tr>
+</table>
+<br>
+
+<hr>
+<center><h1>Talk</h1></center>
+
+<table align=center width=650px>
+    <tr>
+        <td>
+            <div>
+                <iframe width="100%" height="360" src="https://www.youtube.com/watch?v=_a9q_O8yN4E"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table align=center width=800px>
+    <br>
+    <tr>
+        <center>
+				<span style="font-size:28px"><a href='./resources/slides.pdf' target="_blank">[Slides]</a>
+				</span>
+        </center>
+    </tr>
+</table>
+<hr>
+
+<center><h1>Code</h1></center>
+<table align=center width=400px>
+    <tr>
+        <td align=center width=600px>
+            <center>
+        <td><img class="round" style="width:600px" src="./resources/fig2.png"/></td>
+        </center>
+        </td>
+    </tr>
+</table>
+
+
+<table align=center width=800px>
+    <br>
+    <tr>
+        <center>
+			<span style="font-size:28px">&nbsp;<a href='' target="_blank">[GitHub]</a>
+        </center>
+        </span>
+    </tr>
+</table>
+<br>
+
+<table align=center width=400px>
+    <center><h2>Pose Estimation Results on BoP</h2></center>
+    <tr>
+        <td>
+            Pos3R is competitive with the state-of-the-art methods.”
+        </td>
+
+        <td align=center width=600px>
+            <center>
+        <td><img class="round" style="width:500px" src="./resources/fig3.png"/></td>
+        </center>
+        </td>
+    </tr>
+</table>
+
+<table align=center width=400px>
+    <center><h2>Visual Results</h2></center>
+    <tr>
+
+        <td align=center width=600px>
+            The blue box indicates ground truth, and green is our estimate.
+            Pos3R works well under challenging conditions such as clutter, lighting variations, and texture-less surfaces
+            <center>
+        <td>
+            <img class="round" style="width:400px" src="./resources/fig4.png"/>
+        </td>
+                <td>
+                However, heavy occlusion remains a limitation
+                </td>
+        </center>
+        </td>
+    </tr>
+</table>
+
+<hr>
+<table align=center width=500px>
+    <center><h1>Paper and Supplementary Material</h1></center>
+    <tr>
+        <td><a href=""><img class="layered-paper-big" style="height:175px" src="./resources/paper.png"/></a></td>
+        <td><span style="font-size:14pt">Deng W, Campbell D, Sun C, Kanitkar S, Shaffer M, Gould S.<br>
+				<b>Neural Surface Refinement for Modeling Transparent Objects.</b><br>
+				In CVPR, 2024.<br>
+				(hosted on <a href='' target="_blank">[Paper]</a>)<br>
+            <!-- (<a href="./resources/camera-ready.pdf">camera ready</a>)<br> -->
+				<span style="font-size:4pt"><a href=""><br></a>
+				</span>
+        </td>
+    </tr>
+</table>
+<br>
+
+<table align=center width=600px>
+    <tr>
+        <td><span style="font-size:14pt"><center>
+				<a href="./resources/bibtex.txt" target="_blank">[Bibtex]</a>
+			</center></td>
+    </tr>
+</table>
+
+<hr>
+<br>
+
+<table align=center width=600px>
+    <tr>
+        <td width=400px>
+            <left>
+                <center><h1>Acknowledgements</h1></center>
+                This template was originally made by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and <a
+                    href="http://richzhang.github.io/">Richard Zhang</a> for a <a
+                    href="http://richzhang.github.io/colorization/">colorful</a> ECCV project; the code can be found <a
+                    href="https://github.com/richzhang/webpage-template">here</a>.
+            </left>
+        </td>
+    </tr>
+</table>
+
+<br>
+</body>
+</html>
+
